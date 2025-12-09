@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLARITY Project | SemEval 2026</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Custom Tailwind Configuration for Dark/Tech Theme
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode utility classes
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#06b6d4', // Cyan-500 for main accents
+                        secondary: '#0f172a', // Slate-900 for main background
+                        accent: '#fbbf24', // Amber-400 for highlights
+                        darkbg: '#0f172a', 
+                        darkcard: '#1e293b', // Slate-800 for card backgrounds
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Consolas', 'Monaco', 'monospace'],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(6, 182, 212, 0.5)',
+                        'sm-glow': '0 0 5px rgba(6, 182, 212, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        .gradient-text {
+            /* Cyan to Indigo gradient for text */
+            background: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-bg {
+            /* Dark background with a subtle grid pattern or texture */
+            background: linear-gradient(rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98)), url('https://placehold.co/1000x600/0f172a/06b6d4/png?text=DATA+GRID');
+            background-size: cover;
+            background-position: center;
+        }
+        .model-row:hover {
+            background-color: #1a243a !important; /* Slightly lighter slate for dark mode hover */
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(6, 182, 212, 0.3);
+            border-radius: 4px;
+        }
+        /* Style for the active tab content */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        /* Style for the active tab button */
+        .tab-button.active {
+            background-color: #06b6d4; /* Cyan */
+            color: #0f172a; /* Slate-900 */
+            font-weight: 700;
+            box-shadow: 0 0 8px rgba(6, 182, 212, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-gray-200 font-sans" style="font-family: 'Inter', sans-serif;">
+
+    <!-- NAVIGATION (Sticky, Glow Effect) -->
+    <nav class="bg-darkcard shadow-lg sticky top-0 w-full z-50 transition-all duration-300 shadow-glow/10" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-microchip text-primary text-2xl mr-2 shadow-sm-glow"></i>
+                    <span class="font-bold text-xl tracking-tight text-white">CLARITY<span class="text-primary">.AI</span></span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8 text-sm">
+                    <a href="#results" class="text-gray-300 hover:text-primary transition">BENCHMARKS</a>
+                    <a href="#analysis" class="text-gray-300 hover:text-primary transition">ANALYSIS</a>
+                    <a href="#advanced" class="text-gray-300 hover:text-primary transition">INTERPRETABILITY</a>
+                    <a href="#tools" class="text-darkbg bg-primary px-4 py-2 rounded-lg hover:bg-cyan-400 transition shadow-glow/30 font-semibold">CODE ACCESS</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION (Title and Authors) -->
+    <section class="hero-bg min-h-screen flex items-center justify-center pt-24 border-b border-primary/20">
+        <div class="text-center px-4 max-w-4xl mx-auto">
+            <span class="inline-block py-1 px-3 rounded-full bg-slate-800/70 border border-primary/50 text-primary text-sm font-mono font-semibold mb-6 shadow-sm-glow">
+                [CS-272] TERMINAL PROJECT INITIATED | Macro F1 Peak: 0.551
+            </span>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tighter mb-6 leading-tight">
+                Unmasking Political <br> <span class="gradient-text">Question Evasion</span>
+            </h1>
+            <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto font-light">
+                Leveraging **DeBERTa-v3** and deep semantic analysis to detect subtle topic shifts in political discourse. Pipeline operationalized for SemEval 2026.
+            </p>
+            
+            <!-- Authors -->
+            <div class="mt-8 flex flex-wrap justify-center gap-4 text-xs">
+                <div class="flex items-center gap-2 text-gray-300 bg-darkcard px-4 py-2 rounded-full border border-primary/30">
+                    <i class="fas fa-user-tie text-primary"></i> <strong class="font-semibold">M. Hanan Zia</strong>
+                </div>
+                <div class="flex items-center gap-2 text-gray-300 bg-darkcard px-4 py-2 rounded-full border border-primary/30">
+                    <i class="fas fa-user-astronaut text-primary"></i> <strong class="font-semibold">M. Umar Tahir</strong>
+                </div>
+                <div class="flex items-center gap-2 text-gray-300 bg-darkcard px-4 py-2 rounded-full border border-primary/30">
+                    <i class="fas fa-terminal text-primary"></i> <strong class="font-semibold">M. Ibrahim</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN REPORT CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        
+        <!-- ABSTRACT & INTRO -->
+        <section class="mb-12">
+            <h2 class="text-xl font-mono text-accent mb-4">-- [SYSTEM_BOOTSTRAP] --</h2>
+            <div class="space-y-4">
+                <details class="bg-darkcard p-6 rounded-xl shadow-xl border border-primary/30 open:border-primary">
+                    <summary class="text-2xl font-bold text-white cursor-pointer flex justify-between items-center">
+                        ABSTRACT: CORE FINDINGS DECLASSIFIED <i class="fas fa-chevron-down text-sm text-primary transition-all"></i>
+                    </summary>
+                    <div class="pt-4 mt-4 border-t border-primary/30 text-gray-300 space-y-3">
+                        <p>This report documents the operationalization of a modular machine learning pipeline for the CLARITY challenge. We implemented four architectures—TF-IDF, Bi-LSTM, BERT, and DeBERTa-v3—to establish predictive baselines for detecting political evasion.</p>
+                        <p>Our experiments confirmed the necessity of deep contextual understanding, as the Advanced DeBERTa model achieved a peak Macro F1-score of **0.551**. We utilized advanced diagnostic tools, including an Ablation Study and t-SNE visualization, to quantify the impact of noise and diagnose the core problem of semantic class leakage.</p>
+                    </div>
+                </details>
+                <p class="text-gray-400 mt-4"><strong class="text-primary">1. Introduction:</strong> Political discourse is often characterized by strategic ambiguity. This phase focuses on the engineering solution to validate the hypothesis that detecting evasion requires deep semantic models rather than simple feature engineering.</p>
+            </div>
+        </section>
+
+        <!-- 2. SYSTEM ARCHITECTURE & 3. METHODOLOGY -->
+        <section class="mb-12 border-b border-primary/20 pb-8">
+            <h2 class="text-3xl font-bold text-white mb-6">2. ARCHITECTURE & 3. PREPROCESSING</h2>
+
+            <!-- Pipeline Image (Figure 1) -->
+            <div class="bg-darkcard p-4 rounded-xl shadow-lg border border-primary/30 mb-8">
+                <h3 class="text-xl font-mono text-primary mb-3">SYSTEM FLOW DIAGRAM</h3>
+                <img src="data_pipeline_1.png" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/1000x400/1e293b/06b6d4?text=ERROR%3A+PIPELINE+DIAGRAM+ASSET+NOT+FOUND'; this.alt='System Architecture Pipeline Diagram Placeholder';"
+                     alt="Pipeline Architecture Diagram showing data flow from ingestion to evaluation." class="w-full h-auto rounded-lg shadow-xl shadow-primary/20">
+                <p class="text-center text-xs text-gray-500 mt-2">Figure 1: Modular pipeline featuring ingestion, preprocessing, modeling, and interpretability modules.</p>
+            </div>
+
+            <!-- Methodology Subsections (Collapsible) -->
+            <div class="space-y-4">
+                <details class="bg-darkcard p-4 rounded-lg shadow-md border border-accent/20">
+                    <summary class="font-semibold text-accent cursor-pointer flex justify-between items-center">
+                        3.1 Diagnostic Cleaning Suite <i class="fas fa-chevron-down text-sm text-accent transition-all"></i>
+                    </summary>
+                    <div class="pt-3 border-t border-accent/30 mt-3 text-gray-400 space-y-2 text-sm">
+                        <p><strong class="text-white">Artifact Stripping:</strong> Removes noise like `[inaudible]` and speaker tags to maximize linguistic focus.</p>
+                        <p><strong class="text-white">Entropy Check:</strong> Quantifies data hygiene post-cleaning, confirming artifact removal increased information density.</p>
+                    </div>
+                </details>
+                
+                <details class="bg-darkcard p-4 rounded-lg shadow-md border border-accent/20">
+                    <summary class="font-semibold text-accent cursor-pointer flex justify-between items-center">
+                        3.2 Baseline Architectures & Mechanisms <i class="fas fa-chevron-down text-sm text-accent transition-all"></i>
+                    </summary>
+                    <div class="pt-3 border-t border-accent/30 mt-3 text-gray-400 overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-700 text-sm">
+                            <thead>
+                                <tr class="bg-slate-800">
+                                    <th class="px-3 py-2 text-left text-xs font-medium text-primary uppercase">Model</th>
+                                    <th class="px-3 py-2 text-left text-xs font-medium text-primary uppercase">Architecture</th>
+                                    <th class="px-3 py-2 text-left text-xs font-medium text-primary uppercase">Mechanism</th>
+                                    <th class="px-3 py-2 text-left text-xs font-medium text-primary uppercase">Contributor</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-700">
+                                <tr><td>Baseline A</td><td>Statistical (TF-IDF)</td><td>Term frequency/keyword counting.</td><td>M. Hanan Zia</td></tr>
+                                <tr><td>Baseline B</td><td>Recurrent (Bi-LSTM)</td><td>Sequence dependency via forward/backward passes.</td><td>M. Umar Tahir</td></tr>
+                                <tr><td>Baseline C</td><td>Transformer (BERT)</td><td>Global context via Self-Attention.</td><td>M. Ibrahim</td></tr>
+                                <tr><td class="text-accent">Model D (SOTA)</td><td>Advanced (DeBERTa)</td><td>Disentangled Attention (Content + Position).</td><td>M. Ibrahim</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- 4. EXPERIMENTAL RESULTS -->
+        <section id="results" class="mb-12 border-b border-primary/20 pb-8">
+            <h2 class="text-3xl font-bold text-white mb-6">4. PERFORMANCE BENCHMARKS</h2>
+
+            <div class="grid md:grid-cols-5 gap-4 items-center mb-8 bg-darkcard p-4 rounded-xl border border-primary/30">
+                <!-- Data Display Pills -->
+                <div class="col-span-2 space-y-2">
+                    <p class="text-gray-400 font-mono text-sm">Target Metric: Macro F1</p>
+                    <div class="text-4xl font-extrabold gradient-text">0.551</div>
+                    <p class="text-gray-400 text-sm">Peak Performance (DeBERTa-v3)</p>
+                </div>
+
+                <div class="col-span-3">
+                    <h3 class="text-xl font-semibold text-white mb-3">Model Performance Breakdown (Table 1)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-700 text-sm">
+                            <thead>
+                                <tr class="bg-slate-800">
+                                    <th class="px-3 py-2 text-left text-xs font-medium text-primary uppercase">Model</th>
+                                    <th class="px-3 py-2 text-left text-xs font-medium text-primary uppercase">Macro F1</th>
+                                    <th class="px-3 py-2 text-left text-xs font-medium text-primary uppercase">Compute Load</th>
+                                    <th class="px-3 py-2 text-left text-xs font-medium text-primary uppercase">Verdict</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-700" id="results-table-body">
+                                <tr class="model-row text-red-400" data-model="TF-IDF"><td>TF-IDF</td><td class="font-bold">0.433</td><td>Minimal CPU</td><td>Naive Baseline</td></tr>
+                                <tr class="model-row text-yellow-400" data-model="Bi-LSTM"><td>Bi-LSTM</td><td class="font-bold">0.456</td><td>~8 min CPU</td><td>Poor Utility (Syntax insufficient)</td></tr>
+                                <tr class="model-row text-blue-400" data-model="BERT"><td>BERT</td><td class="font-bold">0.523</td><td>~20 min GPU</td><td>Semantic Leap (Required)</td></tr>
+                                <tr class="model-row text-green-400" data-model="DeBERTa"><td>DeBERTa</td><td class="font-bold">0.551</td><td>~45 min GPU</td><td>SOTA (Topic Shift Detection)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Explanation Area -->
+            <div id="model-details" class="mt-4 p-4 border border-accent/40 rounded-lg bg-slate-800 hidden shadow-md shadow-accent/20">
+                <h4 class="text-lg font-bold mb-2 text-primary">ANALYSIS: <span id="detail-model-name"></span></h4>
+                <p id="detail-model-desc" class="text-sm text-gray-300 font-mono"></p>
+            </div>
+        </section>
+
+        <!-- 5. ADVANCED ANALYSIS (BONUS) & 6. CONCLUSION -->
+        <section id="advanced" class="mb-12">
+            <h2 class="text-3xl font-bold text-white mb-6">5. INTERPRETABILITY & DIAGNOSTICS</h2>
+
+            <div class="grid md:grid-cols-5 gap-8">
+                <!-- DIAGNOSTIC INSIGHTS PANEL (Left Column) -->
+                <div class="md:col-span-2 space-y-6">
+                    <h3 class="text-xl font-semibold text-primary mb-3">5.1 Semantic Analysis</h3>
+                    <div class="bg-darkcard p-4 rounded-xl border border-primary/30">
+                        <strong class="text-white block mb-1">The Semantic Gap:</strong>
+                        <p class="text-sm text-gray-400">The jump from LSTM (0.456) to BERT (0.523) confirms that **syntax is not enough**. Detecting evasion requires deep pre-trained 'world knowledge' to understand topic shifts.</p>
+                        <p class="text-xs text-primary/80 mt-2 italic">**[Layman's Analogy]:** Think of TF-IDF/LSTM as only reading the words, but BERT/DeBERTa actually understands the conversation history and context, like recognizing a politician changed the subject entirely.</p>
+                    </div>
+
+                    <div class="bg-darkcard p-4 rounded-xl border border-primary/30">
+                        <strong class="text-white block mb-1">Ambiguity Leakage:</strong>
+                        <p class="text-sm text-gray-400">Confusion analysis (Table 2) showed Bi-LSTM misclassified **14/23** true Non-Replies as Ambivalent, proving it cannot semantically distinguish polite refusal from a stall tactic.</p>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-primary mt-6 mb-3">5.2 Runtime Notes</h3>
+                    <ul class="space-y-2 text-gray-400 list-disc list-inside ml-4">
+                        <li><strong class="text-white">Bottleneck:</strong> Bi-LSTM’s training time ($\approx$8 min) yielded minimal gain, justifying the investment in pre-trained models.</li>
+                        <li><strong class="text-white">Integrity:</strong> Ablation Study showed uncleaned data dropped LSTM performance by 14%. Preprocessing is non-negotiable.</li>
+                    </ul>
+                </div>
+
+                <!-- VISUALIZATIONS (Right Column - Tabbed Interface) -->
+                <div class="md:col-span-3 bg-darkcard p-6 rounded-xl shadow-2xl border border-accent/30">
+                    <div class="flex space-x-2 mb-4 border-b border-gray-700 pb-2">
+                        <button class="tab-button bg-slate-700 text-white px-4 py-2 rounded-full text-xs font-semibold active" onclick="openTab(event, 'tsne')">5.3 t-SNE Projection</button>
+                        <button class="tab-button bg-slate-700 text-white px-4 py-2 rounded-full text-xs font-semibold" onclick="openTab(event, 'cm_lstm')">Confusion Matrix (LSTM)</button>
+                        <button class="tab-button bg-slate-700 text-white px-4 py-2 rounded-full text-xs font-semibold" onclick="openTab(event, 'cm_tfidf')">Confusion Matrix (TF-IDF)</button>
+                    </div>
+
+                    <!-- TAB CONTENT 1: t-SNE -->
+                    <div id="tsne" class="tab-content active">
+                        <h4 class="text-lg font-semibold text-accent mb-3">Latent Space Visualization (Figure 5)</h4>
+                        <img src="tsne_manifold_projection_1.png" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/fbbf24/0f172a?text=t-SNE+PLOT+NOT+LOADED'; this.alt='t-SNE Projection showing cluster overlap.'" class="w-full h-auto rounded-lg shadow-xl shadow-accent/20">
+                        <p class="text-sm text-gray-400 mt-3">
+                            <strong class="text-white">Interpretation:</strong> The overlapping vector clusters for Ambivalent (dodging) and Clear Non-Reply (refusing) prove **geometric ambiguity** in the dataset, justifying the need for advanced attention mechanisms (DeBERTa).
+                        </p>
+                        <p class="text-xs text-accent/80 mt-1 italic">**[Layman's Analogy]:** This is like plotting all answers on a map. The answers for 'dodging' and 'polite refusal' land right on top of each other. The model can't draw a clean dividing line, which is why it struggles.</p>
+                    </div>
+
+                    <!-- TAB CONTENT 2: LSTM CM -->
+                    <div id="cm_lstm" class="tab-content">
+                        <h4 class="text-lg font-semibold text-red-500 mb-3">Confusion Matrix: Bi-LSTM (Figure 3)</h4>
+                        <img src="cm_baseline_b_1.png" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/dc2626/ffffff?text=LSTM+CM+NOT+LOADED';"
+                             alt="Confusion Matrix for Baseline B (LSTM)." class="w-full h-auto rounded-lg shadow-xl shadow-red-500/20">
+                        <p class="text-sm text-gray-400 mt-3">
+                            <strong class="text-white">Error Focus:</strong> Demonstrates Ambiguity Leakage, showing where the Bi-LSTM primarily fails by confusing genuine refusals with strategic evasions.
+                        </p>
+                    </div>
+
+                    <!-- TAB CONTENT 3: TF-IDF CM -->
+                    <div id="cm_tfidf" class="tab-content">
+                        <h4 class="text-lg font-semibold text-primary mb-3">Confusion Matrix: TF-IDF (Figure 4)</h4>
+                        <img src="cm_baseline_a_1.png" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/06b6d4/ffffff?text=TF-IDF+CM+NOT+LOADED';"
+                             alt="Confusion Matrix for Baseline A (TF-IDF)." class="w-full h-auto rounded-lg shadow-xl shadow-primary/20">
+                        <p class="text-sm text-gray-400 mt-3">
+                            <strong class="text-white">Error Focus:</strong> Confirms Naive Misclassification—TF-IDF guesses the majority class when keywords are absent, showing the weakness of statistical models.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CONCLUSION & 7. AUTHOR CONTRIBUTION -->
+        <section class="mb-12 border-t border-primary/30 pt-8">
+            <h2 class="text-3xl font-bold text-white mb-6">6. CONCLUSION / 7. AUTHOR MANIFEST</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- CONCLUSION -->
+                <div class="md:col-span-2 bg-darkcard p-6 rounded-xl shadow-2xl border border-primary/40">
+                    <h3 class="text-xl font-semibold text-primary mb-3">CLOSING ARGUMENT</h3>
+                    <p class="text-gray-300">
+                        The operational pipeline established a strong benchmark of **0.551 F1** using **DeBERTa-v3**. Our analysis confirms that solving political evasion requires overcoming a geometrically ambiguous semantic problem. Therefore, deep contextual and specialized transformer architectures are strictly necessary over traditional NLP methods.
+                    </p>
+                </div>
+                
+                <!-- CONTRIBUTION -->
+                <div class="md:col-span-1 bg-darkcard p-6 rounded-xl shadow-2xl border border-primary/40">
+                    <h3 class="text-xl font-semibold text-accent mb-3">TASK DIVISION</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><strong class="text-white">M. Hanan Zia:</strong> Baseline A (TF-IDF) & Data Ingestion.</li>
+                        <li><strong class="text-white">M. Umar Tahir:</strong> Baseline B (Bi-LSTM) & Preprocessing.</li>
+                        <li><strong class="text-white">M. Ibrahim:</strong> Lead Architect, BERT/DeBERTa (SOTA), & Advanced Analytics.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-darkcard text-slate-400 py-12 border-t border-primary/30">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="text-white font-bold text-lg">CLARITY Project</span>
+                <p class="text-sm mt-1">CS-272 Artificial Intelligence</p>
+            </div>
+            <div class="flex space-x-6 text-sm">
+                <a href="https://github.com/YourRepoLink" target="_blank" class="hover:text-primary transition">Source Code (GitHub)</a>
+                <a href="https://konstantinosftw.github.io/CLARITY-SemEval-2026/" target="_blank" class="hover:text-primary transition">Official Challenge Site</a>
+                <!-- UPDATED: Added mailto link with corrected email -->
+                <a href="mailto:mibrahim.bscs24seecs@seecs.edu.pk" class="hover:text-primary transition">Contact Lead (mibrahim.bscs24seecs@seecs.edu.pk)</a>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-xs text-slate-600">
+            &copy; 2025 SEECS. Access Logged. System Operational.
+        </div>
+    </footer>
+
+    <!-- INTERACTIVITY SCRIPTS -->
+    <script>
+        // Data for Interactive Table Row Click
+        const modelData = {
+            "TF-IDF": {
+                description: "The 'Keyword Guesser.' Macro F1: 0.433. The low score proves evasion is not about vocabulary; it requires context."
+            },
+            "Bi-LSTM": {
+                description: "The 'Grammar Checker.' Macro F1: 0.456. Marginal gain confirms that sequence and word order are insufficient; lacked the pre-trained 'world knowledge' required."
+            },
+            "BERT": {
+                description: "The 'Encyclopedia.' Macro F1: 0.523. The large performance jump confirms that deep pre-trained semantic understanding is strictly necessary to model the task."
+            },
+            "DeBERTa": {
+                description: "The 'SOTA Architect.' Macro F1: 0.551. Its disentangled attention mechanism made it best suited for detecting subtle topic shifts and nuanced answers."
+            }
+        };
+
+        // Function to handle tab switching for visualizations
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Initialize the first tab on load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize tab system
+            document.querySelector('.tab-button').click();
+
+            // Initialize table click interaction
+            const rows = document.querySelectorAll('#results-table-body .model-row');
+            const detailBox = document.getElementById('model-details');
+            const detailName = document.getElementById('detail-model-name');
+            const detailDesc = document.getElementById('detail-model-desc');
+
+            rows.forEach(row => {
+                const modelName = row.dataset.model;
+                
+                row.addEventListener('click', () => {
+                    const data = modelData[modelName];
+                    
+                    // Remove highlight from all rows and apply to current
+                    rows.forEach(r => r.classList.remove('bg-blue-200/50', 'bg-darkcard', 'shadow-sm-glow'));
+                    row.classList.add('bg-blue-200/50', 'shadow-sm-glow');
+
+                    // Populate and show the details box
+                    detailName.textContent = modelName;
+                    detailDesc.textContent = data.description;
+                    detailBox.classList.remove('hidden');
+
+                    // Scroll to the details box
+                    detailBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

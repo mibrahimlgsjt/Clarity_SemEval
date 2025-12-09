@@ -1,0 +1,13 @@
+pandas
+numpy
+scikit-learn
+torch
+transformers
+datasets
+matplotlib
+seaborn
+tqdm
+nltk
+accelerate>=0.21.0
+plotly
+tabulate
